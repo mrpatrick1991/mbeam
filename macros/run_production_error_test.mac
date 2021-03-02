@@ -1,3 +1,0 @@
-/run/numberOfThreads 15
-/control/macroPath macros
-/control/loop production_error_test.mac i 100 500 100

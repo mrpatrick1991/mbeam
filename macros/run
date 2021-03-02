@@ -1,2 +1,0 @@
-/run/numberOfThreads 16
-/control/loop monoenergetic_unidirectional_beam_500km_source_all_sample_alts i 0 2 2

@@ -1,13 +1,12 @@
 #include "DetectorConstruction.hh"
 #include "ActionInitialization.hh"
-#include "G4MTRunManager.hh"
+#include "G4RunManager.hh"
 #include "G4UImanager.hh"
 #include "PhysicsList.hh"
 #include "G4EmStandardPhysics.hh"
 #include "G4StepLimiterPhysics.hh"
 #include "G4ScoringManager.hh"
 #include "Randomize.hh"
-#include "G4VisExecutive.hh"
 #include "G4UIExecutive.hh"
 
 int main(int argc, char** argv) {
@@ -23,7 +22,7 @@ int main(int argc, char** argv) {
 
   // Construct the default run manager
   G4ScoringManager::GetScoringManager();
-  G4MTRunManager* runManager = new G4MTRunManager;
+  G4RunManager* runManager = new G4RunManager;
 
   // Set mandatory initialization classes
   PhysicsList* physics_list = new PhysicsList();
@@ -34,12 +33,6 @@ int main(int argc, char** argv) {
 
   // Set user action classes
   runManager->SetUserInitialization(new ActionInitialization());
-
-  // Initialize visualization
-  G4VisManager* visManager = new G4VisExecutive;
-
-  // G4VisExecutive can take a verbosity argument - see /vis/verbose
-  visManager->Initialize();
 
   // Get the pointer to the User Interface manager
   G4UImanager* UImanager = G4UImanager::GetUIpointer();
@@ -69,6 +62,5 @@ int main(int argc, char** argv) {
   // detector_description are owned and deleted by the run manager, so
   // they should not be deleted in the main() program !
 
-  delete visManager;
   delete runManager;
 }

@@ -1,7 +1,7 @@
 #----------------------------------------------------------------------------
 # Setup the project
 cmake_minimum_required(VERSION 2.6 FATAL_ERROR)
-project(msis_xray)
+project(mbeam)
 
 #----------------------------------------------------------------------------
 # Find Geant4 package, activating all available UI and Vis drivers by default
@@ -35,16 +35,8 @@ file(GLOB headers ${PROJECT_SOURCE_DIR}/include/*.hh)
 #----------------------------------------------------------------------------
 # Add the executable, and link it to the Geant4 libraries
 #
-add_executable(msis_xray  msis_xray.cc ${sources} ${headers} ${TOOLS_FORTRAN_OBJECTS})
-target_link_libraries(msis_xray ${Geant4_LIBRARIES} ${HBOOK_LIBRARIES} )
-
-
-
-# install and link periodic boundary conditions library
-
-#find_package(g4pbc REQUIRED NO_MODULE)
-#include_directories(${g4pbc_INCLUDE_DIRS})
-#target_link_libraries(msis_xray g4pbc::g4pbc)
+add_executable(mbeam  mbeam.cc ${sources} ${headers} ${TOOLS_FORTRAN_OBJECTS})
+target_link_libraries(mbeam ${Geant4_LIBRARIES} ${HBOOK_LIBRARIES} )
 
 #----------------------------------------------------------------------------
 # Copy all scripts to the build directory, i.e. the directory in which we
@@ -52,10 +44,10 @@ target_link_libraries(msis_xray ${Geant4_LIBRARIES} ${HBOOK_LIBRARIES} )
 # relies on these scripts being in the current working directory.
 #
 
-set(MSIS_XRAY_DATA
+set(MBEAM_DATA
   )
 
-foreach(_data ${MSIS_XRAY_DATA})
+foreach(_data ${MBEAM_DATA})
   configure_file(
     ${PROJECT_SOURCE_DIR}/${_data}
     ${PROJECT_BINARY_DIR}/${_data}
@@ -63,10 +55,10 @@ foreach(_data ${MSIS_XRAY_DATA})
     )
 endforeach()
 
-set(MSIS_XRAY_SCRIPTS
+set(MBEAM_SCRIPTS
   )
 
-foreach(_script ${MSIS_XRAY_SCRIPTS})
+foreach(_script ${MBEAM_SCRIPTS})
   configure_file(
     ${PROJECT_SOURCE_DIR}/${_script}
     ${PROJECT_BINARY_DIR}/${_script}
@@ -74,24 +66,6 @@ foreach(_script ${MSIS_XRAY_SCRIPTS})
     )
 endforeach()
 
-foreach(_script ${MSIS_XRAY_RAMDISK})
-  configure_file(
-    ${PROJECT_SOURCE_DIR}/${_rd}
-    ${PROJECT_BINARY_DIR}/${_rd}
-    COPYONLY
-    )
-endforeach()
-
-set(MSIS_XRAY_DOC
-  )
-
-foreach(_doc ${MSIS_XRAY_DOC})
-  configure_file(
-    ${PROJECT_SOURCE_DIR}/${_doc}
-    ${PROJECT_BINARY_DIR}/${_doc}
-    COPYONLY
-    )
-endforeach()
 
 
 #----------------------------------------------------------------------------
@@ -107,12 +81,7 @@ file( COPY ${PROJECT_SOURCE_DIR}/macros
 file( COPY ${PROJECT_SOURCE_DIR}/scripts
   DESTINATION ${PROJECT_BINARY_DIR})
 
-file( COPY ${PROJECT_SOURCE_DIR}/ramdisk
-    DESTINATION ${PROJECT_BINARY_DIR})
-
-file( COPY ${PROJECT_SOURCE_DIR}/doc
-  DESTINATION ${PROJECT_BINARY_DIR})
 #----------------------------------------------------------------------------
 # Install the executable to 'bin' directory under CMAKE_INSTALL_PREFIX
 #
-install(TARGETS msis_xray DESTINATION bin)
+install(TARGETS mbeam DESTINATION bin)

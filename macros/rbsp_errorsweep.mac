@@ -1,3 +1,0 @@
-/run/numberOfThreads 14
-/control/macroPath macros
-/control/loop rbsp_error.mac i 0.0 0.170 .01
