@@ -1,0 +1,44 @@
+# scan in start and stop cutoff energies, and energy slope, to put error bars on
+# the count rate at the detector altitude.
+/run/numberOfThreads 15
+
+/run/initialize
+# Init general particle source
+/gps/particle e-
+/gps/pos/type Point
+/gps/pos/centre 0. 0. 500. km
+/gps/ang/type cos
+/gps/direction 0 0 -1
+
+/gps/ene/type Exp
+/gps/ene/min .170 MeV
+/gps/ene/max .350 MeV
+/gps/ene/ezero .200
+
+/control/verbose 2
+/run/verbose 2
+
+# these are actually 35 km, which is exactly where the detector was.
+/analysis/h1/setActivationToAll false
+/analysis/h1/setActivation 1036 true
+/analysis/h1/setActivation 536 true
+/analysis/h1/setActivation 36 true
+
+
+#/score/create/boxMesh boxMesh_1
+#/score/mesh/boxSize 100000. 100000. 250. km
+#/score/mesh/nBin 1 1 500 # 1 km bins
+#/score/quantity/flatSurfaceCurrent fc
+#/score/filter/particle filt gamma
+
+/run/beamOn 1000000
+#/score/close
+#/score/dumpQuantityToFile boxMesh_1 fc ramdisk/fc.csv
+#/control/shell mv ramdisk/events_run_0_h1_photon_KE_histogram_atm_slc_1035.csv ramdisk/output_h1_photon_KE_histogram_atm_slc_1035_run_{i}_nparticles.csv
+#/control/shell mv ramdisk/events_run_0_h1_photon_theta_histogram_atm_slc_35.csv ramdisk/output_h1_photon_theta_histogram_atm_slc_35_run_{i}_nparticles.csv
+#/control/shell mv ramdisk/events_run_aa0_h1_photon_phi_histogram_atm_slc_535.csv ramdisk/output_h1_photon_phi_histogram_atm_slc_535_run_{i}_nparticles.csv
+#/control/shell python scripts/generate_output_histograms_for_geant_input.py ramdisk/output_h1_photon_theta_histogram_atm_slc_35_run_{i}_nparticles.csv ramdisk/output_h1_photon_phi_histogram_atm_slc_535_run_{i}_nparticles.csv ramdisk/output_h1_photon_KE_histogram_atm_slc_1035_run_{i}_nparticles.csv
+
+#/control/shell mv patrick/phd/build/ABOVE2_build/macros/theta_in.mac patrick/phd/build/ABOVE2_build/macros/output_h1_photon_theta_histogram_atm_slc_35_run_{i}_nparticles.mac
+#/control/shell mv patrick/phd/build/ABOVE2_build/macros/phi_in.mac patrick/phd/build/ABOVE2_build/macros/output_h1_photon_phi_histogram_atm_slc_535_run_{i}_nparticles.mac
+#/control/shell mv patrick/phd/build/ABOVE2_build/macros/ene_in.mac patrick/phd/build/ABOVE2_build/macros/output_h1_photon_KE_histogram_atm_slc_1035_run_{i}_nparticles.mac

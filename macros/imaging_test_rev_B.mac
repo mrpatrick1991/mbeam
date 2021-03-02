@@ -1,0 +1,40 @@
+
+# Place a monodirectional, monoenergetic beam of electrons at 500 km.
+# Point the beam down and integrate the angle and energy spectra at a
+# target altitude of [0 to 500] km above the ground. Return a polar angle
+# histogram and an energy histogram at the target altitude.
+# Also compute an altitude / energy deposition curve for the specified beam.
+
+/run/numberOfThreads 16
+/run/initialize
+
+
+# Init general particle source
+
+/gps/particle e-
+/gps/pos/type Point
+/gps/pos/centre 0. 0. 1000. km # 250 km here is a half length, maps to 500 km AGL
+/gps/ang/type beam1d
+/gps/energy 1000 keV # 10 MeV beam pointed straight down
+/gps/direction 0 0 -1
+
+# Set up energy deposition / altitude scorer
+
+#/score/create/boxMesh boxMesh_1
+#/score/mesh/boxSize 100000. 100000. 250. km
+#/score/mesh/nBin 1 1 500 # 1 km bins
+#/score/quantity/energyDeposit eDep
+
+/control/verbose 2
+/run/verbose 2
+
+/analysis/h1/setActivationToAll false
+
+#/analysis/h1/setActivation 35 true
+#/analysis/h1/setActivation 535 true
+#/analysis/h1/setActivation 1035 true
+
+/run/beamOn 1000000
+
+#/score/close
+#/score/dumpQuantityToFile boxMesh_2 fSC ramdisk/1MeV_fSC_beam1d_500km_source_alt_run.csv

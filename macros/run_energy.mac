@@ -1,0 +1,3 @@
+/run/numberOfThreads 16
+/control/macroPath macros
+/control/loop novis3.mac i 50 1000 10

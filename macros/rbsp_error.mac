@@ -1,0 +1,34 @@
+# scan in start and stop cutoff energies, and energy slope, to put error bars on
+# the count rate at the detector altitude.
+
+/run/initialize
+
+# Init general particle source
+/gps/particle e-
+/gps/pos/type Point
+/gps/pos/centre 0. 0. 500. km
+/gps/ang/type cos
+/gps/direction 0 0 -1
+
+/gps/ene/type Exp
+/gps/ene/min .170 MeV
+/gps/ene/max .350 MeV
+/gps/ene/ezero .200
+
+/control/verbose 2
+/run/verbose 2
+
+# these are actually 35 km, which is exactly where the detector was.
+/analysis/h1/setActivationToAll false
+/analysis/h1/setActivation 1036 true
+
+#/score/create/boxMesh boxMesh_1
+#/score/mesh/boxSize 100000. 100000. 250. km
+#/score/mesh/nBin 1 1 500 # 1 km bins
+#/score/quantity/flatSurfaceCurrent fc
+#/score/filter/particle filt gamma
+
+/run/beamOn 1000000
+#/score/close
+#/score/dumpQuantityToFile boxMesh_1 fc ramdisk/fc.csv
+/control/shell mv ramdisk/events_run_0_h1_photon_KE_histogram_atm_slc_1035.csv ramdisk/output_h1_photon_KE_histogram_atm_slc_1035_run_{i}.csv

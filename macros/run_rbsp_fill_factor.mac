@@ -1,0 +1,3 @@
+/run/numberOfThreads 15
+/control/macroPath macros
+/control/loop rbsp_fill_factor.mac i 1000 2000 1000

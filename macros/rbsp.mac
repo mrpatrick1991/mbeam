@@ -1,0 +1,50 @@
+# Try to simulate a realistic energy and spatial distribution for a fixed
+# number of precipitating electrons above the atmosphere, then get the
+# total number of resulting photons at 35 km altitude, and finally copy the
+# resulting photon energy angle distribution to the detector simulation to get
+# what the readout should be.
+
+# detector FOV is approximately a 45 degree cone upwards.
+
+/run/numberOfThreads 16
+/run/initialize
+
+# Init general particle source
+/gps/particle e-
+/gps/pos/type Point
+/gps/pos/centre 0. 0. 500. km
+/gps/ang/type beam1d
+/gps/direction 0 0 -1
+
+
+
+/gps/ene/type Exp
+/gps/ene/min .170 MeV
+/gps/ene/max .350 MeV
+/gps/ene/ezero .200
+
+/control/verbose 2
+/run/verbose 2
+
+
+# these are actually 35 km, which is exactly where the detector was.
+/analysis/h1/setActivationToAll false
+/analysis/h1/setActivation 36 true
+/analysis/h1/setActivation 536 true
+/analysis/h1/setActivation 1036 true
+
+/analysis/h1/setActivation 1999 true
+/analysis/h1/setActivation 2499 true
+
+
+
+
+#/score/create/boxMesh boxMesh_1
+#/score/mesh/boxSize 100000. 100000. 250. km
+#/score/mesh/nBin 1 1 500 # 1 km bins
+#/score/quantity/flatSurfaceCurrent fc
+#/score/filter/particle filt gamma
+
+/run/beamOn 1000
+#/score/close
+#/score/dumpQuantityToFile boxMesh_1 fc ramdisk/fc.csv

@@ -1,0 +1,23 @@
+/run/initialize
+
+
+# Init general particle source
+
+/gps/particle e-
+/gps/pos/type Point
+/gps/pos/centre 0. 0. 500. km # 250 km here is a half length, maps to 500 km AGL
+/gps/ang/type beam1d
+/gps/energy {i} keV # Sweep
+/gps/direction 0 0 -1
+
+/control/verbose 2
+/run/verbose 2
+
+/analysis/h1/setActivationToAll false # all histograms are on
+##/analysis/h1/setActivation 36 true
+#/analysis/h1/setActivation 536 true
+/analysis/h1/setActivation 1036 true
+
+
+/run/beamOn 10000000
+/control/shell mv ramdisk/events_run_0_h1_photon_KE_histogram_atm_slc_1035.csv ramdisk/output_h1_photon_KE_histogram_atm_slc_1035_run_{i}_keV.csv
