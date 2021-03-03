@@ -8,7 +8,6 @@
 #include "G4SystemOfUnits.hh"
 #include "G4PhysicalConstants.hh"
 #include "G4Box.hh"
-#include "G4Cons.hh"
 #include "G4TransportationManager.hh"
 #include "TrackerSD.hh"
 #include "G4SDManager.hh"

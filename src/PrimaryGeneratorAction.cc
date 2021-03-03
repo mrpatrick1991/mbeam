@@ -6,15 +6,18 @@
 #include "globals.hh"
 
 PrimaryGeneratorAction::PrimaryGeneratorAction()
- : G4VUserPrimaryGeneratorAction(),
-   fParticleGun(0) {
-   fParticleGun = new G4GeneralParticleSource();
+    : G4VUserPrimaryGeneratorAction(),
+      fParticleGun(0)
+{
+  fParticleGun = new G4GeneralParticleSource();
 }
 
-PrimaryGeneratorAction::~PrimaryGeneratorAction() {
+PrimaryGeneratorAction::~PrimaryGeneratorAction()
+{
   delete fParticleGun;
 }
 
-void PrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent) {
+void PrimaryGeneratorAction::GeneratePrimaries(G4Event *anEvent)
+{
   fParticleGun->GeneratePrimaryVertex(anEvent);
 }

@@ -1,4 +1,4 @@
-/run/numberOfThreads 16
+/run/numberOfThreads 8
 /control/verbose 2
 /control/saveHistory
 /run/verbose 2

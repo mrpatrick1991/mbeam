@@ -1,6 +1,6 @@
 #include "DetectorConstruction.hh"
 #include "ActionInitialization.hh"
-#include "G4RunManager.hh"
+#include "G4MTRunManager.hh"
 #include "G4UImanager.hh"
 #include "PhysicsList.hh"
 #include "G4EmStandardPhysics.hh"
@@ -22,7 +22,7 @@ int main(int argc, char** argv) {
 
   // Construct the default run manager
   G4ScoringManager::GetScoringManager();
-  G4RunManager* runManager = new G4RunManager;
+  G4MTRunManager* runManager = new G4MTRunManager;
 
   // Set mandatory initialization classes
   PhysicsList* physics_list = new PhysicsList();

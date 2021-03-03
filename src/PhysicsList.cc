@@ -6,20 +6,25 @@
 #include "G4ParticleTable.hh"
 #include "G4SystemOfUnits.hh"
 
-PhysicsList::PhysicsList() : G4VModularPhysicsList() {
+PhysicsList::PhysicsList() : G4VModularPhysicsList()
+{
 }
 
-PhysicsList::~PhysicsList(){
+PhysicsList::~PhysicsList()
+{
 }
 
-void PhysicsList::ConstructParticle() {
+void PhysicsList::ConstructParticle()
+{
   G4VModularPhysicsList::ConstructParticle();
 }
 
-void PhysicsList::ConstructProcess() {
+void PhysicsList::ConstructProcess()
+{
   G4VModularPhysicsList::ConstructProcess();
 }
 
-void PhysicsList::SetCuts() {
+void PhysicsList::SetCuts()
+{
   SetCutsWithDefault();
 }
