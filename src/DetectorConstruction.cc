@@ -66,7 +66,6 @@ DetectorConstruction::~DetectorConstruction() {
 
 G4VPhysicalVolume* DetectorConstruction::Construct() {
   G4GeometryManager::GetInstance()->SetWorldMaximumExtent(WORLD_SIZE_XY);
-  G4bool checkOverlaps = true;
 
   G4Material* vacuum = new G4Material("Galactic", 1., 1.01*g/mole,
    1.e-25, kStateGas, 0.1*kelvin, 1.e-19*pascal);
@@ -77,9 +76,10 @@ G4VPhysicalVolume* DetectorConstruction::Construct() {
   G4LogicalVolume* logicWorld = new G4LogicalVolume(solidWorld, vacuum, "World");
 
   G4VPhysicalVolume* physWorld = new G4PVPlacement(0, G4ThreeVector(0, 0, 0), logicWorld, "World",
-	  0, false, 0, checkOverlaps);
+	  0, false, 0, true);
 
   for (int i=0; i<MSIS_N_SLICE; i++) {
+
     G4cout << "Building atmosphere slice " + std::to_string(i) + "...\n";
     G4cout << "Altitude for this slice is: " + std::to_string(i*(WORLD_SIZE_Z / MSIS_N_SLICE)/2000000.0) + " km.\n";
 		msis_input.doy=MSIS_DOY;
@@ -94,7 +94,7 @@ G4VPhysicalVolume* DetectorConstruction::Construct() {
 
     G4double msis_layer_height_km = WORLD_SIZE_Z / (2.0*MSIS_N_SLICE);
 
-  	msis_flags.switches[0]=0;
+  	msis_flags.switches[0]=0; // this is the recommended configuration. 
   	for (int j=1;j<24;j++) {
   		msis_flags.switches[j]=1;
     }
@@ -107,38 +107,38 @@ G4VPhysicalVolume* DetectorConstruction::Construct() {
     G4cout << "nHe: " << std::scientific << std::setprecision(16) << msis_output.d[0] << "\n";
     G4cout << "nO: " << std::scientific <<  std::setprecision(16) << msis_output.d[1] << "\n";
     G4cout << "nN2: " << std::scientific << std::setprecision(16) << msis_output.d[2] << "\n";
-    G4cout << "n02: " << std::scientific <<  std::setprecision(16) << msis_output.d[3] << "\n";
+    G4cout << "nO2: " << std::scientific <<  std::setprecision(16) << msis_output.d[3] << "\n";
     G4cout << "nAr: " << std::scientific << std::setprecision(16) << msis_output.d[4] << "\n";
     G4cout << "nH: " << std::scientific << std::setprecision(16) << msis_output.d[6] << "\n";
-    G4cout << "nN: " <<  std::scientific << std::setprecision(16) << msis_output.d[7] << "\n";
+    G4cout << "nN: " << std::scientific << std::setprecision(16) << msis_output.d[7] << "\n";
     G4cout << "Rho: " << std::scientific << std::setprecision(16) << msis_output.d[5] << "\n";
     G4cout << "\n";
 
-    G4double rho = msis_output.d[5];
+    G4double rho = msis_output.d[5]*(g/cm3);
 
-    G4Material *atm_mat = new G4Material("atm_slc_" + std::to_string(i), rho*g / cm3, 7);
-    elOMassFraction = msis_output.d[1] * aO / (rho*AVOGADRO);
-	  elN2MassFraction = msis_output.d[2]  * aN * 2 / (rho*AVOGADRO);
-	  elO2MassFraction = msis_output.d[3] * aO * 2 / (rho*AVOGADRO);
-	  elHeMassFraction = msis_output.d[0] * aHe / (rho*AVOGADRO);
-	  elHMassFraction = msis_output.d[6] * aH / (rho*AVOGADRO);
-	  elArMassFraction = msis_output.d[4] * aAr / (rho*AVOGADRO);
-	  elNMassFraction = msis_output.d[7] * aN / (rho*AVOGADRO);
+    G4Material *atm_mat = new G4Material("atm_slc_" + std::to_string(i), rho*(g/cm3), 7, kStateGas,273.15*kelvin);
 
-    G4Material* N2 = new G4Material("N2", (g / cm3)*aN*2.0/(AVOGADRO*msis_output.d[2]), 2);
+	  elOMassFraction = (g/cm3)*msis_output.d[1] * aO / (rho*AVOGADRO);
+  	elHeMassFraction = (g/cm3)*msis_output.d[0] * aHe / (rho*AVOGADRO);
+	  elHMassFraction = (g/cm3)*msis_output.d[6] * aH / (rho*AVOGADRO);
+    elArMassFraction = (g/cm3)*msis_output.d[4] * aAr / (rho*AVOGADRO);
+   	elNMassFraction = (g/cm3)*msis_output.d[7] * aN / (rho*AVOGADRO);
+    elN2MassFraction = (g/cm3)*msis_output.d[2] * aN * 2.0 / (rho*AVOGADRO);
+	  elO2MassFraction = (g/cm3)*msis_output.d[3] * aO * 2.0 / (rho*AVOGADRO);
+
+    G4Material* N2 = new G4Material("N2_"+std::to_string(i),(G4double)(g/cm3)*msis_output.d[2]*aN/(AVOGADRO), 1);
     N2->AddElement(elN, 2);
 
-    G4Material* O2 = new G4Material("O2", (g / cm3)*aO*2.0/(AVOGADRO*msis_output.d[3]), 2);
+    G4Material* O2 = new G4Material("O2_"+std::to_string(i),(G4double)(g/cm3)*msis_output.d[3]*aO/(AVOGADRO), 1);
     O2->AddElement(elO, 2);
 
 	  atm_mat->AddElement(elO, elOMassFraction);
-    atm_mat->AddElement(elN, elOMassFraction);
-    atm_mat->AddElement(elH, elHMassFraction);
+	  atm_mat->AddElement(elN, elNMassFraction);
 	  atm_mat->AddElement(elHe, elHeMassFraction);
 	  atm_mat->AddElement(elAr, elArMassFraction);
-
-	  //atm_mat->AddMaterial(N2, elN2MassFraction);
-	  //atm_mat->AddMaterial(O2, elO2MassFraction);
+	  atm_mat->AddElement(elH, elHMassFraction);
+	  atm_mat->AddMaterial(O2, elO2MassFraction);
+	  atm_mat->AddMaterial(N2, elN2MassFraction);
 
     // dimensions are specifed as half-lengths
 	  G4Box *atm_shape = new G4Box("atm_slc_",
