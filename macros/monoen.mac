@@ -8,9 +8,9 @@
 # Init general particle source
 /gps/particle e-
 /gps/pos/type Point
-/gps/pos/centre 0. 0. 200. km
+/gps/pos/centre 0. 0. 500. km
 /gps/ang/type beam1d
-/gps/energy 500 keV # 10 MeV beam pointed straight down
+/gps/energy 600 keV
 /gps/direction 0 0 -1
 
 /run/printProgress 1000

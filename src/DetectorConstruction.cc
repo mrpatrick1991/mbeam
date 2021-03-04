@@ -14,23 +14,13 @@
 #include "G4NistManager.hh"
 #include "G4Element.hh"
 #include "nrlmsise-00.hh"
-
-#define MSIS_LAT_DEG 51.000; // coordinates to sample the MSIS atmosphere at
-#define MSIS_LON_DEG 114.000;
-#define MSIS_DOY 1;
-#define MSIS_LST 16;
-#define MSIS_F107 100;
-#define MSIS_F107A 100;
-#define MSIS_AP 4;
-
-#define MSIS_N_SLICE 500 // number of atmosphere slabs to model, each with height WORLD_SIZE_Z/MSIS_N_SLICE.
+#include "Config.hh"
 
 G4bool checkOverlaps = true;
 
 const G4double AVOGADRO = 6.0221409e+23;
 
 const G4double WORLD_SIZE_XY = 1000000 * km; // infinity
-const G4double WORLD_SIZE_Z = 1000 * km;     // this means to sample MSIS from 0 to 500 km AGL.
 
 G4double aO = 15.999;
 G4Element *elO = new G4Element("Oxygen", "O", 8., aO *g / mole);
@@ -82,7 +72,6 @@ G4VPhysicalVolume *DetectorConstruction::Construct()
 
   for (int i = 0; i < MSIS_N_SLICE; i++)
   {
-
     G4cout << "Building atmosphere slice " + std::to_string(i) + "...\n";
     G4cout << "Altitude for this slice is: " + std::to_string(i * (WORLD_SIZE_Z / MSIS_N_SLICE) / 2000000.0) + " km.\n";
     msis_input.doy = MSIS_DOY;
@@ -95,14 +84,14 @@ G4VPhysicalVolume *DetectorConstruction::Construct()
     msis_input.f107 = MSIS_F107;
     msis_input.ap = MSIS_AP;
 
-    G4double msis_layer_height_km = WORLD_SIZE_Z / (2.0 * MSIS_N_SLICE);
+    G4double msis_layer_height_km = WORLD_SIZE_Z / (MSIS_N_SLICE);
 
-    msis_flags.switches[0] = 0; // this is the recommended configuration.
+    msis_flags.switches[0] = 0; // this is the recommended configuration for msis.
     for (int j = 1; j < 24; j++)
     {
       msis_flags.switches[j] = 1;
     }
-    msis_flags.switches[0] = 0;
+    msis_flags.switches[0] = 0; // use g/cm^3 units for densities
 
     msis_input.alt = i * (WORLD_SIZE_Z / MSIS_N_SLICE) / 2000000.0;
 
@@ -120,7 +109,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct()
 
     G4double rho = msis_output.d[5] * (g / cm3);
 
-    G4Material *atm_mat = new G4Material("atm_slc_" + std::to_string(i), rho * (g / cm3), 7, kStateGas, 273.15 * kelvin);
+    G4Material *atm_mat = new G4Material("atm_slc_" + std::to_string(i), rho, 7);
 
     elOMassFraction = (g / cm3) * msis_output.d[1] * aO / (rho * AVOGADRO);
     elHeMassFraction = (g / cm3) * msis_output.d[0] * aHe / (rho * AVOGADRO);
@@ -148,12 +137,12 @@ G4VPhysicalVolume *DetectorConstruction::Construct()
     G4Box *atm_shape = new G4Box("atm_slc_",
                                  WORLD_SIZE_XY / 2.0, WORLD_SIZE_XY / 2.0, msis_layer_height_km / 2.0);
 
-    G4ThreeVector atm_pos = G4ThreeVector(0, 0, (-WORLD_SIZE_Z) / 2.0 + (i * msis_layer_height_km));
-    G4LogicalVolume *atm_logv = new G4LogicalVolume(atm_shape, atm_mat, "atm_slc_lv");
-    new G4PVPlacement(0, atm_pos, atm_logv, "atm_slc_pv", logicWorld, false, i, checkOverlaps);
+    G4ThreeVector atm_pos = G4ThreeVector(0, 0, (WORLD_SIZE_Z) / 2.0 + (i * msis_layer_height_km));
+    G4LogicalVolume *atm_logv = new G4LogicalVolume(atm_shape, atm_mat, "atm_slc_lv_" + std::to_string(MSIS_SENSITIVE_SLICE));
+    new G4PVPlacement(0, atm_pos, atm_logv, "atm_slc_pv_"+ std::to_string(MSIS_SENSITIVE_SLICE), logicWorld, false, i, checkOverlaps);
   }
 
-  G4cout << "Model atmosphere construction finihsed.\n";
+  G4cout << "Model atmosphere construction finished.\n";
 
   return physWorld;
 }
@@ -163,5 +152,5 @@ void DetectorConstruction::ConstructSDandField()
   G4String SDname = "atm_SD";
   TrackerSD *atmTracker = new TrackerSD(SDname, "TrackerHitsCollection");
   G4SDManager::GetSDMpointer()->AddNewDetector(atmTracker);
-  SetSensitiveDetector("atm_slc_lv", atmTracker, true);
+  SetSensitiveDetector("atm_slc_lv_"+ std::to_string(MSIS_SENSITIVE_SLICE), atmTracker, true);
 }

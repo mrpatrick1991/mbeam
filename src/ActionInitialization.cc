@@ -19,4 +19,3 @@ void ActionInitialization::Build() const {
   SetUserAction(new RunAction);
   SetUserAction(new EventAction);
 }
-

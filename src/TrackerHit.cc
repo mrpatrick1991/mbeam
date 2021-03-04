@@ -12,7 +12,6 @@ G4ThreadLocal G4Allocator<TrackerHit>* TrackerHitAllocator=0;
 TrackerHit::TrackerHit()
  : G4VHit(),
    fTrackID(-1),
-   fChamberNb(-1),
    fEdep(0.),
    fPos(G4ThreeVector()),
    fP(G4ThreeVector()),
@@ -22,50 +21,31 @@ TrackerHit::TrackerHit()
 
 TrackerHit::~TrackerHit() {}
 
-TrackerHit::TrackerHit(const TrackerHit& right)
+TrackerHit::TrackerHit(const TrackerHit& hit)
   : G4VHit()
 {
-  fTrackID   = right.fTrackID;
-  fChamberNb = right.fChamberNb;
-  fEdep      = right.fEdep;
-  fPos       = right.fPos;
-  fP = right.fP;
-  fn = right.fn;
-  fKe = right.fKe;
+  fTrackID   = hit.fTrackID;
+  fEdep      = hit.fEdep;
+  fPos       = hit.fPos;
+  fP = hit.fP;
+  fn = hit.fn;
+  fKe = hit.fKe;
 }
 
-const TrackerHit& TrackerHit::operator=(const TrackerHit& right)
+const TrackerHit& TrackerHit::operator=(const TrackerHit& hit)
 {
-  fTrackID   = right.fTrackID;
-  fChamberNb = right.fChamberNb;
-  fEdep      = right.fEdep;
-  fPos       = right.fPos;
-  fP = right.fP;
-  fn = right.fn;
-  fKe = right.fKe;
+  fTrackID   = hit.fTrackID;
+  fEdep      = hit.fEdep;
+  fPos       = hit.fPos;
+  fP = hit.fP;
+  fn = hit.fn;
+  fKe = hit.fKe;
 
   return *this;
 }
 
-G4int TrackerHit::operator==(const TrackerHit& right) const
+G4int TrackerHit::operator==(const TrackerHit& hit) const
 {
-  return ( this == &right ) ? 1 : 0;
+  return ( this == &hit ) ? 1 : 0;
 }
 
-void TrackerHit::Draw()
-{
-  G4VVisManager* pVVisManager = G4VVisManager::GetConcreteInstance();
-  if(pVVisManager)
-  {
-    G4Circle circle(fPos);
-    circle.SetScreenSize(4.);
-    circle.SetFillStyle(G4Circle::filled);
-    G4Colour colour(1.,0.,0.);
-    G4VisAttributes attribs(colour);
-    circle.SetVisAttributes(attribs);
-    pVVisManager->Draw(circle);
-  }
-}
-
-void TrackerHit::Print() {
-}

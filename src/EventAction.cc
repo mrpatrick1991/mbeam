@@ -1,5 +1,4 @@
 #include "EventAction.hh"
-#include "Analysis.hh"
 #include "G4Event.hh"
 #include "G4EventManager.hh"
 #include "G4TrajectoryContainer.hh"
@@ -32,7 +31,7 @@ void EventAction::EndOfEventAction(const G4Event *event)
   // periodic printing
 
   G4int eventID = event->GetEventID();
-  if (eventID < 100 || eventID % 100 == 0)
+  if (eventID < 10000 || eventID % 10000 == 0)
   {
     G4cout << ">>> Event: " << eventID << G4endl;
     if (trajectoryContainer)
