@@ -10,8 +10,8 @@
 /gps/pos/type Point
 /gps/pos/centre 0. 0. 500. km
 /gps/ang/type beam1d
-/gps/energy 600 keV
+/gps/energy 500 keV
 /gps/direction 0 0 -1
 
 /run/printProgress 1000
-/run/beamOn 10000
+/run/beamOn 1000000
