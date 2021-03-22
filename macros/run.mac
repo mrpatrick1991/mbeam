@@ -1,0 +1,7 @@
+/run/numberOfThreads 8
+/control/verbose 2
+/control/saveHistory
+/run/verbose 2
+/run/initialize
+
+/control/loop /Users/patrick/Documents/phd/build/mbeam_build/macros/monoen.mac eKin 500 700 50
