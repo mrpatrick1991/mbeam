@@ -22,7 +22,7 @@ RunAction::RunAction()
   analysisManager->CreateH1("photon_theta_histogram_atm_slc_" + std::to_string(MSIS_SENSITIVE_SLICE),
                             "photon polar angle histogram", 180, 0., 180 * degree);
   analysisManager->CreateH1("photon_KE_histogram_atm_slc_" + std::to_string(MSIS_SENSITIVE_SLICE),
-                            "photon kinetic energy histogram", 1000, 0., 1000 * keV);
+                            "photon kinetic energy histogram", 2000, 0., 2000 * keV);
   analysisManager->OpenFile("output");
 }
 
