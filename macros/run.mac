@@ -4,4 +4,4 @@
 /run/verbose 2
 /run/initialize
 
-/control/loop /home/mrpatric/mbeam_build/macros/monoen.mac eKin 100 500  100
+/control/loop /home/mrpatric/mbeam_build/macros/monoen.mac eKin 10 2000 10
