@@ -49,9 +49,6 @@ G4bool TrackerSD::ProcessHits(G4Step *aStep,
 
   fHitsCollection->insert(newHit);
 
-  delete dynParticle;
-  delete track;
-
   return true;
 }
 

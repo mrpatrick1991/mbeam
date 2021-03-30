@@ -1,4 +1,4 @@
-/run/numberOfThreads 40
+/run/numberOfThreads 1
 /control/verbose 2
 /control/saveHistory
 /run/verbose 2
@@ -14,6 +14,6 @@
 /gps/direction 0 0 -1
 
 /run/printProgress 1000
-/run/beamOn 10000000
+/run/beamOn 1000000
 /control/shell mv /home/mrpatric/mbeam_build/events_run_?_h1_photon_KE_histogram_atm_slc_34.csv /home/mrpatric/mbeam_build/events_run_?_h1_photon_KE_histogram_atm_slc_34.csv
 
