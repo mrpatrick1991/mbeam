@@ -38,33 +38,6 @@ file(GLOB headers ${PROJECT_SOURCE_DIR}/include/*.hh)
 add_executable(mbeam  mbeam.cc ${sources} ${headers} ${TOOLS_FORTRAN_OBJECTS})
 target_link_libraries(mbeam ${Geant4_LIBRARIES} ${HBOOK_LIBRARIES} )
 
-#----------------------------------------------------------------------------
-# Copy all scripts to the build directory, i.e. the directory in which we
-# build TestEm4. This is so that we can run the executable directly because it
-# relies on these scripts being in the current working directory.
-#
-
-set(MBEAM_DATA
-  )
-
-foreach(_data ${MBEAM_DATA})
-  configure_file(
-    ${PROJECT_SOURCE_DIR}/${_data}
-    ${PROJECT_BINARY_DIR}/${_data}
-    COPYONLY
-    )
-endforeach()
-
-set(MBEAM_SCRIPTS
-  )
-
-foreach(_script ${MBEAM_SCRIPTS})
-  configure_file(
-    ${PROJECT_SOURCE_DIR}/${_script}
-    ${PROJECT_BINARY_DIR}/${_script}
-    COPYONLY
-    )
-endforeach()
 
 
 
@@ -72,8 +45,6 @@ endforeach()
 # Copy the link to the macro directory and copy the macro directory with
 # all of its files.
 
-file( COPY ${PROJECT_SOURCE_DIR}/data
-  DESTINATION ${PROJECT_BINARY_DIR})
 
 file( COPY ${PROJECT_SOURCE_DIR}/macros
   DESTINATION ${PROJECT_BINARY_DIR})
