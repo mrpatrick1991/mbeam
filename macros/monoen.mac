@@ -9,5 +9,4 @@
 /run/printProgress 1000
 /run/beamOn 1000000
 /control/shell mv /home/mrpatric/events_run_?_h1_photon_KE_histogram_atm_slc_34.csv /home/mrpatric/g4out/events_run_?_h1_photon_KE_histogram_atm_slc_34_{eKin}_keV_unidir.csv
-/control/shell mv /home/mrpatric/events_run_?_h1_photon_theta_histogram_atm_slc_34.csv /home/mrpatricg4out/events_run_?_h1_photon_theta_histogram_atm_slc_34_{eKin}_keV_unidir.csv
-
+/control/shell mv /home/mrpatric/events_run_?_h1_photon_theta_histogram_atm_slc_34.csv /home/mrpatricg/g4out/events_run_?_h1_photon_theta_histogram_atm_slc_34_{eKin}_keV_unidir.csv
