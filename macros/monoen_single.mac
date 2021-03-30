@@ -1,4 +1,4 @@
-/run/numberOfThreads 8
+/run/numberOfThreads 40
 /control/verbose 2
 /control/saveHistory
 /run/verbose 2
@@ -14,8 +14,6 @@
 /gps/direction 0 0 -1
 
 /run/printProgress 1000
-/run/beamOn 1000000
+/run/beamOn 10000000
 #/control/shell mv /Users/patrick/Documents/phd/build/mbeam_build/events_run_?_h1_photon_KE_histogram_atm_slc_34.csv /Users/patrick/Documents/phd/build/mbeam_build/events_run_0_h1_photon_KE_histogram_atm_slc_34_{eKin}_keV.csv
-#/control/shell mv /Users/patrick/Documents/phd/build/mbeam_build/events_run_?_h1_photon_theta_histogram_atm_slc_34.csv /Users/patrick/Documents/phd/build/mbeam_build/events_run_0_h1_photon_theta_histogram_atm_slc_34_{eKin}_keV.csv
-
 
