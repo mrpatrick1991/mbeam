@@ -49,8 +49,6 @@ target_link_libraries(mbeam ${Geant4_LIBRARIES} ${HBOOK_LIBRARIES} )
 file( COPY ${PROJECT_SOURCE_DIR}/macros
   DESTINATION ${PROJECT_BINARY_DIR})
 
-file( COPY ${PROJECT_SOURCE_DIR}/scripts
-  DESTINATION ${PROJECT_BINARY_DIR})
 
 #----------------------------------------------------------------------------
 # Install the executable to 'bin' directory under CMAKE_INSTALL_PREFIX
