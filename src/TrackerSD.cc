@@ -33,20 +33,14 @@ G4bool TrackerSD::ProcessHits(G4Step *aStep,
                               G4TouchableHistory *)
 {
 
-  G4Track *track = aStep->GetTrack();
   TrackerHit *newHit = new TrackerHit();
 
-  if (track->GetDefinition()->GetParticleName() != "gamma")
-    return false;
-
-  const G4DynamicParticle *dynParticle = track->GetDynamicParticle();
-
-  newHit->SetKineticEnergy(dynParticle->GetKineticEnergy());
+  newHit->SetKineticEnergy(aStep->GetTrack()->GetDynamicParticle()->GetKineticEnergy());
   newHit->SetMomentumDirection(aStep->GetTrack()->GetMomentumDirection());
   newHit->SetPos(aStep->GetPostStepPoint()->GetPosition());
   newHit->SetEdep(aStep->GetTotalEnergyDeposit());
-  newHit->SetTrackID(track->GetTrackID());
-
+  newHit->SetTrackID(aStep->GetTrack()->GetTrackID());
+  
   fHitsCollection->insert(newHit);
 
   return true;
