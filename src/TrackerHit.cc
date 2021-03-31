@@ -16,7 +16,8 @@ TrackerHit::TrackerHit()
    fPos(G4ThreeVector()),
    fP(G4ThreeVector()),
    fn(0),
-   fKe(0)
+   fKe(0),
+   fName()
 {}
 
 TrackerHit::~TrackerHit() {}
@@ -30,6 +31,7 @@ TrackerHit::TrackerHit(const TrackerHit& hit)
   fP = hit.fP;
   fn = hit.fn;
   fKe = hit.fKe;
+  fName = hit.fName;
 }
 
 const TrackerHit& TrackerHit::operator=(const TrackerHit& hit)
@@ -40,6 +42,7 @@ const TrackerHit& TrackerHit::operator=(const TrackerHit& hit)
   fP = hit.fP;
   fn = hit.fn;
   fKe = hit.fKe;
+  fName = hit.fName;
 
   return *this;
 }

@@ -2,7 +2,7 @@
 /gps/particle e-
 /gps/pos/type Point
 /gps/pos/centre 0. 0. 500. km
-/gps/ang/type beam1d
+/gps/ang/type cos
 /gps/energy {eKin} keV
 /gps/direction 0 0 -1
 

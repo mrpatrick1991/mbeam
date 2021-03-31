@@ -40,9 +40,13 @@ G4bool TrackerSD::ProcessHits(G4Step *aStep,
   newHit->SetPos(aStep->GetPostStepPoint()->GetPosition());
   newHit->SetEdep(aStep->GetTotalEnergyDeposit());
   newHit->SetTrackID(aStep->GetTrack()->GetTrackID());
+  newHit->SetParticleName(aStep->GetTrack()->GetParticleDefinition()->GetParticleType());
   
+  if (newHit->GetParticleName() == "gamma") {
   fHitsCollection->insert(newHit);
+  }
 
+  
   return true;
 }
 

@@ -34,7 +34,7 @@ public:
   void SetMomentumDirection(G4ThreeVector p) { fP = p; };
   void setSecondaryNumber(G4int n) { fn = n; };
   void SetKineticEnergy(G4double ke) { fKe = ke; };
-  void SetParticleName(G4String na) { fNa = na; };
+  void SetParticleName(G4String name) { fName = name; };
 
   // Get methods
   G4int GetTrackID() const { return fTrackID; };
@@ -43,7 +43,7 @@ public:
   G4ThreeVector GetMomentumDirection() const { return fP; };
   G4int getSecondaryNumber() const { return fn; };
   G4double GetKineticEnergy() const { return fKe; };
-  G4String GetParticleName() const { return fNa; };
+  G4String GetParticleName() const { return fName; };
 
 private:
   G4int fTrackID;
@@ -52,7 +52,7 @@ private:
   G4ThreeVector fPos;
   G4int fn;
   G4double fKe;
-  G4String fNa;
+  G4String fName;
 };
 
 typedef G4THitsCollection<TrackerHit> TrackerHitsCollection;
