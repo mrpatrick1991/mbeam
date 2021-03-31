@@ -6,6 +6,8 @@
 #include "G4Allocator.hh"
 #include "G4ThreeVector.hh"
 #include "tls.hh"
+#include <G4DynamicParticle.hh>
+
 
 // Tracker hit class
 // It defines data members to store the , chamberNb, energy deposit,
@@ -34,7 +36,7 @@ public:
   void SetMomentumDirection(G4ThreeVector p) { fP = p; };
   void setSecondaryNumber(G4int n) { fn = n; };
   void SetKineticEnergy(G4double ke) { fKe = ke; };
-  void SetParticleName(G4String name) { fName = name; };
+  void SetParticleDef(G4ParticleDefinition *def) { fDef = def; };
 
   // Get methods
   G4int GetTrackID() const { return fTrackID; };
@@ -43,7 +45,7 @@ public:
   G4ThreeVector GetMomentumDirection() const { return fP; };
   G4int getSecondaryNumber() const { return fn; };
   G4double GetKineticEnergy() const { return fKe; };
-  G4String GetParticleName() const { return fName; };
+  G4ParticleDefinition* GetParticleDef() const { return fDef; };
 
 private:
   G4int fTrackID;
@@ -52,7 +54,7 @@ private:
   G4ThreeVector fPos;
   G4int fn;
   G4double fKe;
-  G4String fName;
+  G4ParticleDefinition *fDef;
 };
 
 typedef G4THitsCollection<TrackerHit> TrackerHitsCollection;

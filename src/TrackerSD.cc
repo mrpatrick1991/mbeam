@@ -9,6 +9,9 @@
 #include "PrimaryGeneratorAction.hh"
 #include <cmath>
 #include <math.h>
+#include <G4Gamma.hh>
+#include <G4DynamicParticle.hh>
+
 
 TrackerSD::TrackerSD(const G4String &name,
                      const G4String &hitsCollectionName)
@@ -40,12 +43,9 @@ G4bool TrackerSD::ProcessHits(G4Step *aStep,
   newHit->SetPos(aStep->GetPostStepPoint()->GetPosition());
   newHit->SetEdep(aStep->GetTotalEnergyDeposit());
   newHit->SetTrackID(aStep->GetTrack()->GetTrackID());
-  newHit->SetParticleName(aStep->GetTrack()->GetParticleDefinition()->GetParticleType());
+  newHit->SetParticleDef(aStep->GetTrack()->GetDefinition());
   
-  if (newHit->GetParticleName() == "gamma") {
   fHitsCollection->insert(newHit);
-  }
-
   
   return true;
 }
@@ -59,8 +59,10 @@ void TrackerSD::EndOfEvent(G4HCofThisEvent *)
   {
     for (G4int i = 0; i < nofHits; i++)
     {
-          analysisManager->FillH1(1, (*fHitsCollection)[i]->GetMomentumDirection().theta());
-          analysisManager->FillH1(2, (*fHitsCollection)[i]->GetKineticEnergy());
+          if ( (*fHitsCollection)[i]->GetParticleDef() == G4Gamma::Definition()) {
+            analysisManager->FillH1(1, (*fHitsCollection)[i]->GetMomentumDirection().theta());
+            analysisManager->FillH1(2, (*fHitsCollection)[i]->GetKineticEnergy());
+          }
     }
   }
 }
