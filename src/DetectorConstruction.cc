@@ -137,9 +137,9 @@ G4VPhysicalVolume *DetectorConstruction::Construct()
     G4Box *atm_shape = new G4Box("atm_slc_",
                                  WORLD_SIZE_XY / 2.0, WORLD_SIZE_XY / 2.0, msis_layer_height_km / 2.0);
 
-    G4ThreeVector atm_pos = G4ThreeVector(0, 0, (WORLD_SIZE_Z) / 2.0 + (i * msis_layer_height_km));
-    G4LogicalVolume *atm_logv = new G4LogicalVolume(atm_shape, atm_mat, "atm_slc_lv_" + std::to_string(MSIS_SENSITIVE_SLICE));
-    new G4PVPlacement(0, atm_pos, atm_logv, "atm_slc_pv_"+ std::to_string(MSIS_SENSITIVE_SLICE), logicWorld, false, i, checkOverlaps);
+    G4ThreeVector atm_pos = G4ThreeVector(0, 0, -(WORLD_SIZE_Z) / 2.0 + (i * msis_layer_height_km));
+    G4LogicalVolume *atm_logv = new G4LogicalVolume(atm_shape, atm_mat, "atm_slc_lv_" + std::to_string(i));
+    G4PVPlacement *atm_pvpl = new G4PVPlacement(0, atm_pos, atm_logv, "atm_slc_pv", logicWorld, false, i, checkOverlaps);
   }
 
   G4cout << "Model atmosphere construction finished.\n";
@@ -152,5 +152,6 @@ void DetectorConstruction::ConstructSDandField()
   G4String SDname = "atm_SD";
   TrackerSD *atmTracker = new TrackerSD(SDname, "TrackerHitsCollection");
   G4SDManager::GetSDMpointer()->AddNewDetector(atmTracker);
-  SetSensitiveDetector("atm_slc_lv_"+ std::to_string(MSIS_SENSITIVE_SLICE), atmTracker, true);
+  SetSensitiveDetector("atm_slc_lv_" + std::to_string(MSIS_SENSITIVE_SLICE), atmTracker, true);
 }
+

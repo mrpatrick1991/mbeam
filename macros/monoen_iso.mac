@@ -1,16 +1,16 @@
 # Init general particle source
 /gps/particle e-
 /gps/pos/type Point
-/gps/pos/centre 0. 0. 500. km
+/gps/pos/centre 0. 0. 200. km
 /gps/ang/type iso
 /gps/energy {eKin} keV
 /gps/direction 0 0 -1
 
 /run/printProgress 1000
 /run/beamOn 10000000
-/control/shell mv /home/mrpatric/events_run_?_h1_photon_KE_histogram_atm_slc_34.csv /home/mrpatric/g4out/h1_photon_KE_histogram_atm_slc_34_{eKin}_keV_iso.csv
-/control/shell mv /home/mrpatric/events_run_?_h1_photon_theta_histogram_atm_slc_34.csv /home/mrpatric/g4out/h1_photon_theta_histogram_atm_slc_34_{eKin}_keV_iso.csv
-/control/shell mv /home/mrpatric/events_run_??_h1_photon_KE_histogram_atm_slc_34.csv /home/mrpatric/g4out/h1_photon_KE_histogram_atm_slc_34_{eKin}_keV_iso.csv
-/control/shell mv /home/mrpatric/events_run_??_h1_photon_theta_histogram_atm_slc_34.csv /home/mrpatric/g4out/h1_photon_theta_histogram_atm_slc_34_{eKin}_keV_iso.csv
-/control/shell mv /home/mrpatric/events_run_???_h1_photon_KE_histogram_atm_slc_34.csv /home/mrpatric/g4out/h1_photon_KE_histogram_atm_slc_34_{eKin}_keV_iso.csv
-/control/shell mv /home/mrpatric/events_run_???_h1_photon_theta_histogram_atm_slc_34.csv /home/mrpatric/g4out/h1_photon_theta_histogram_atm_slc_34_{eKin}_keV_iso.csv
+/control/shell mv /home/mrpatric/events_run_?_h1_photon_KE_histogram_atm_slc_30.csv /home/mrpatric/g4out/h1_photon_KE_histogram_atm_slc_30_{eKin}_keV_iso.csv
+/control/shell mv /home/mrpatric/events_run_?_h1_photon_theta_histogram_atm_slc_30.csv /home/mrpatric/g4out/h1_photon_theta_histogram_atm_slc_30_{eKin}_keV_iso.csv
+/control/shell mv /home/mrpatric/events_run_??_h1_photon_KE_histogram_atm_slc_30.csv /home/mrpatric/g4out/h1_photon_KE_histogram_atm_slc_30_{eKin}_keV_iso.csv
+/control/shell mv /home/mrpatric/events_run_??_h1_photon_theta_histogram_atm_slc_30.csv /home/mrpatric/g4out/h1_photon_theta_histogram_atm_slc_30_{eKin}_keV_iso.csv
+/control/shell mv /home/mrpatric/events_run_???_h1_photon_KE_histogram_atm_slc_30.csv /home/mrpatric/g4out/h1_photon_KE_histogram_atm_slc_30_{eKin}_keV_iso.csv
+/control/shell mv /home/mrpatric/events_run_???_h1_photon_theta_histogram_atm_slc_30.csv /home/mrpatric/g4out/h1_photon_theta_histogram_atm_slc_30_{eKin}_keV_iso.csv

@@ -4,6 +4,6 @@
 /run/verbose 2
 /run/initialize
 
-/control/loop /home/mrpatric/mbeam_build/macros/monoen_beam1d.mac eKin 10 2000 10
-/control/loop /home/mrpatric/mbeam_build/macros/monoen_iso.mac eKin 10 2000 10
-/control/loop /home/mrpatric/mbeam_build/macros/monoen_cos.mac eKin 10 2000 10
+#/control/loop /home/mrpatric/mbeam_build/macros/monoen_beam1d.mac eKin 10 2000 10
+/control/foreach /home/mrpatric/mbeam_build/macros/monoen_iso.mac eKin 50 100 200 500 1000 2000
+#/control/loop /home/mrpatric/mbeam_build/macros/monoen_cos.mac eKin 10 2000 10

@@ -37,7 +37,8 @@ public:
   void setSecondaryNumber(G4int n) { fn = n; };
   void SetKineticEnergy(G4double ke) { fKe = ke; };
   void SetParticleDef(G4ParticleDefinition *def) { fDef = def; };
-
+  void SetAtmSlice(G4int slice)      { fAtmSlice = slice; };
+  G4int GetAtmSlice() const   { return fAtmSlice; };
   // Get methods
   G4int GetTrackID() const { return fTrackID; };
   G4double GetEdep() const { return fEdep; };
@@ -53,6 +54,7 @@ private:
   G4ThreeVector fP;
   G4ThreeVector fPos;
   G4int fn;
+  G4int fAtmSlice;
   G4double fKe;
   G4ParticleDefinition *fDef;
 };

@@ -11,7 +11,7 @@
 #include <math.h>
 #include <G4Gamma.hh>
 #include <G4DynamicParticle.hh>
-
+#include "Config.hh"
 
 TrackerSD::TrackerSD(const G4String &name,
                      const G4String &hitsCollectionName)
@@ -44,9 +44,7 @@ G4bool TrackerSD::ProcessHits(G4Step *aStep,
   newHit->SetEdep(aStep->GetTotalEnergyDeposit());
   newHit->SetTrackID(aStep->GetTrack()->GetTrackID());
   newHit->SetParticleDef(aStep->GetTrack()->GetDefinition());
-  
   fHitsCollection->insert(newHit);
-  
   return true;
 }
 

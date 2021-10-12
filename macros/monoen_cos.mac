@@ -8,9 +8,9 @@
 
 /run/printProgress 1000
 /run/beamOn 10000000
-/control/shell mv /home/mrpatric/events_run_?_h1_photon_KE_histogram_atm_slc_34.csv /home/mrpatric/g4out/h1_photon_KE_histogram_atm_slc_34_{eKin}_keV_cos.csv
-/control/shell mv /home/mrpatric/events_run_?_h1_photon_theta_histogram_atm_slc_34.csv /home/mrpatric/g4out/h1_photon_theta_histogram_atm_slc_34_{eKin}_keV_cos.csv
-/control/shell mv /home/mrpatric/events_run_??_h1_photon_KE_histogram_atm_slc_34.csv /home/mrpatric/g4out/h1_photon_KE_histogram_atm_slc_34_{eKin}_keV_cos.csv
-/control/shell mv /home/mrpatric/events_run_??_h1_photon_theta_histogram_atm_slc_34.csv /home/mrpatric/g4out/h1_photon_theta_histogram_atm_slc_34_{eKin}_keV_cos.csv
-/control/shell mv /home/mrpatric/events_run_???_h1_photon_KE_histogram_atm_slc_34.csv /home/mrpatric/g4out/h1_photon_KE_histogram_atm_slc_34_{eKin}_keV_cos.csv
-/control/shell mv /home/mrpatric/events_run_???_h1_photon_theta_histogram_atm_slc_34.csv /home/mrpatric/g4out/h1_photon_theta_histogram_atm_slc_34_{eKin}_keV_cos.csv
+/control/shell mv /home/mrpatric/events_run_?_h1_photon_KE_histogram_atm_slc_32.csv /home/mrpatric/g4out/h1_photon_KE_histogram_atm_slc_32_{eKin}_keV_cos.csv
+/control/shell mv /home/mrpatric/events_run_?_h1_photon_theta_histogram_atm_slc_32.csv /home/mrpatric/g4out/h1_photon_theta_histogram_atm_slc_32_{eKin}_keV_cos.csv
+/control/shell mv /home/mrpatric/events_run_??_h1_photon_KE_histogram_atm_slc_32.csv /home/mrpatric/g4out/h1_photon_KE_histogram_atm_slc_32_{eKin}_keV_cos.csv
+/control/shell mv /home/mrpatric/events_run_??_h1_photon_theta_histogram_atm_slc_32.csv /home/mrpatric/g4out/h1_photon_theta_histogram_atm_slc_32_{eKin}_keV_cos.csv
+/control/shell mv /home/mrpatric/events_run_???_h1_photon_KE_histogram_atm_slc_32.csv /home/mrpatric/g4out/h1_photon_KE_histogram_atm_slc_32_{eKin}_keV_cos.csv
+/control/shell mv /home/mrpatric/events_run_???_h1_photon_theta_histogram_atm_slc_32.csv /home/mrpatric/g4out/h1_photon_theta_histogram_atm_slc_32_{eKin}_keV_cos.csv

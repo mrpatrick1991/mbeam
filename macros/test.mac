@@ -1,0 +1,18 @@
+/run/numberOfThreads 40
+
+/control/verbose 2
+/control/saveHistory
+/run/verbose 2
+/run/initialize
+
+# Init general particle source
+/gps/particle e-
+/gps/pos/type Point
+/gps/pos/centre 0. 0. 100. km
+/gps/ang/type iso
+/gps/energy 500  keV
+/gps/direction 0 0 -1
+
+/run/printProgress 1000
+/run/beamOn 10000000
+

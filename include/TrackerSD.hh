@@ -22,6 +22,7 @@ class TrackerSD : public G4VSensitiveDetector
 
   private:
     TrackerHitsCollection* fHitsCollection;
+    G4int fAtmSlice;
 };
 
 #endif
